@@ -29,11 +29,20 @@ $(function () {
   // current hour in 24-hour time?
   //
   function updateColor() {
-
+    //need to figure out how to get id from time blocks to compare to current hour
     //for loop to iterate over time blocks and add class
     for (let i = 0; i < timeBlocks.length; i++) {
-      
-      
+      let currentBlock = $(timeBlocks.get(i));
+      let currentBlockHour = currentBlock.attr('id').slice(5);
+      console.log(currentBlockHour);
+
+      if (currentBlockHour === currentHour) {
+        currentBlock.addClass('present');
+      }  else if (currentBlockHour > currentHour) {
+        currentBlock.addClass('future');
+      }  else if (currentBlockHour < currentHour) {
+        currentBlock.addClass('past');
+      }
     }
   }
 
