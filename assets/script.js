@@ -1,3 +1,11 @@
+//target DOM elements
+const container = $('#container-lg');
+const timeBlocks = container.children('div');
+const saveBtn = $('.saveBtn');
+//create variables to store dayJS
+let today = dayjs();
+let currentHour = dayjs().hour();
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -20,4 +28,5 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
+  $('#currentDay').text(dayjs().format('MMM DD, YYYY [at] hh:mm a'));
 });
