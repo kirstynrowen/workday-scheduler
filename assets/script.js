@@ -4,8 +4,8 @@ const timeBlocks = container.children('div');
 const saveBtn = $('.saveBtn');
 //create variables to store dayJS
 let today = dayjs();
-let currentHour = dayjs().hour();
-console.log(currentHour);
+
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -29,20 +29,27 @@ $(function () {
   // current hour in 24-hour time?
   //
   function updateColor() {
+    let currentHour = dayjs().hour();
     //need to figure out how to get id from time blocks to compare to current hour
     //for loop to iterate over time blocks and add class
     for (let i = 0; i < timeBlocks.length; i++) {
+      // Assign current time block jQuery object to currentBlock
       let currentBlock = $(timeBlocks.get(i));
-      let currentBlockHour = currentBlock.attr('id').slice(5);
+      // Get the hour value from the id of the current time block
+      let currentBlockHour = currentBlock.attr('id').slice(5); 
       console.log(currentBlockHour);
 
-      if (currentBlockHour === currentHour) {
-        currentBlock.addClass('present');
-      }  else if (currentBlockHour > currentHour) {
-        currentBlock.addClass('future');
-      }  else if (currentBlockHour < currentHour) {
+      if (currentBlockIndex < currentHour) {
         currentBlock.addClass('past');
+      }  else if (currentBlockIndex === currentHour) {
+        currentBlock.removeClass('past');
+        currentBlock.addClass('present');
+      }  else if (currentBlockIndex > currentHour) {
+        currentBlock.removeClass('past');
+        currentBlock.removeClass('present');
+        currentBlock.addClass('future');
       }
+      console.log('testing')
     }
   }
 
@@ -53,8 +60,6 @@ $(function () {
   // TODO: Add code to display the current date in the header of the page.
   $('#currentDay').text(dayjs().format('MMM DD, YYYY [at] hh:mm a'));
   // call functions on page load
-  function init () {
-    updateColor();
-  }
-  init();
+
+  updateColor();
 });
