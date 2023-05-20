@@ -6,8 +6,6 @@ $(function () {
   const container = $('#container-lg');
   const timeBlocks = container.children('div');
   const saveBtn = $('.saveBtn');
-  //create variables to store dayJS
-  let today = dayjs();
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -19,7 +17,6 @@ $(function () {
     let time = $(this).parent().attr('id'); 
     localStorage.setItem(time, taskText.val());
   })
-
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
@@ -29,24 +26,26 @@ $(function () {
   function updateColor() {
     let currentHour = dayjs().hour();
     //need to figure out how to get id from time blocks to compare to current hour
-    //for loop to iterate over time blocks and add class
-    for (let i = 0; i < timeBlocks.length; i++) {
+    //iterate over time blocks and add class based on current hour
+    timeBlocks.each(function() {
       // Assign current time block jQuery object to currentBlock
-      let currentBlock = $(timeBlocks.get(i));
+      let currentBlock = $(this);
       // Get the hour value from the id of the current time block
       let currentBlockHour = currentBlock.attr('id').slice(5); 
 
-      if (currentBlockIndex < currentHour) {
+      if (currentBlockHour < currentHour) {
         currentBlock.addClass('past');
-      }  else if (currentBlockIndex === currentHour) {
+        currentBlock.removeClass('present');
+        currentBlock.removeClass('future');
+      }  else if (currentBlockHour === currentHour) {
         currentBlock.removeClass('past');
         currentBlock.addClass('present');
-      }  else if (currentBlockIndex > currentHour) {
+      }  else if (currentBlockHour > currentHour) {
         currentBlock.removeClass('past');
         currentBlock.removeClass('present');
         currentBlock.addClass('future');
       }
-    }
+    });
   }
 
   // TODO: Add code to get any user input that was saved in localStorage and set
