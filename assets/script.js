@@ -1,15 +1,13 @@
-//target DOM elements
-const container = $('#container-lg');
-const timeBlocks = container.children('div');
-const saveBtn = $('.saveBtn');
-//create variables to store dayJS
-let today = dayjs();
-
-
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+  //target DOM elements
+  const container = $('#container-lg');
+  const timeBlocks = container.children('div');
+  const saveBtn = $('.saveBtn');
+  //create variables to store dayJS
+  let today = dayjs();
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -17,9 +15,9 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   saveBtn.on('click', function() {
-    let taskText = $(this).siblings('textarea');
+    let taskText = $(this).siblings('.description');
     let time = $(this).parent().attr('id'); 
-    localStorage.setItem(taskText.val(), time);
+    localStorage.setItem(time, taskText.val());
   })
 
   // TODO: Add code to apply the past, present, or future class to each time
@@ -37,7 +35,6 @@ $(function () {
       let currentBlock = $(timeBlocks.get(i));
       // Get the hour value from the id of the current time block
       let currentBlockHour = currentBlock.attr('id').slice(5); 
-      console.log(currentBlockHour);
 
       if (currentBlockIndex < currentHour) {
         currentBlock.addClass('past');
@@ -49,17 +46,27 @@ $(function () {
         currentBlock.removeClass('present');
         currentBlock.addClass('future');
       }
-      console.log('testing')
     }
   }
 
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  //
+  // Display tasks that were saved to local storage
+  function showTasks() {
+    $('#hour-9 .description').val(localStorage.getItem('hour-9'));
+    $('#hour-10 .description').val(localStorage.getItem('hour-10'));
+    $('#hour-11 .description').val(localStorage.getItem('hour-11'));
+    $('#hour-12 .description').val(localStorage.getItem('hour-12'));
+    $('#hour-13 .description').val(localStorage.getItem('hour-13'));
+    $('#hour-14 .description').val(localStorage.getItem('hour-14'));
+    $('#hour-15 .description').val(localStorage.getItem('hour-15'));
+    $('#hour-16 .description').val(localStorage.getItem('hour-16'));
+    $('#hour-17 .description').val(localStorage.getItem('hour-17'));
+  }
   // TODO: Add code to display the current date in the header of the page.
   $('#currentDay').text(dayjs().format('MMM DD, YYYY [at] hh:mm a'));
   // call functions on page load
-
+  showTasks();
   updateColor();
 });
