@@ -22,6 +22,6 @@ The following animation demonstrates the application functionality:
 
 ### Deployment:
 
-- The application is deployed at:
+- The application is deployed at: https://kirstynrowen.github.io/workday-scheduler/
 
 ---
