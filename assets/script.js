@@ -3,8 +3,7 @@
 // in the html.
 $(function () {
   //target DOM elements
-  const container = $('#container-lg');
-  const timeBlocks = container.children('div');
+  const timeBlocks = $('.time-block');
   const saveBtn = $('.saveBtn');
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -31,7 +30,7 @@ $(function () {
       // Assign current time block jQuery object to currentBlock
       let currentBlock = $(this);
       // Get the hour value from the id of the current time block
-      let currentBlockHour = currentBlock.attr('id').slice(5); 
+      let currentBlockHour = parseInt(currentBlock.attr('id').slice(5)); 
 
       if (currentBlockHour < currentHour) {
         currentBlock.addClass('past');
